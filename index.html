@@ -204,9 +204,44 @@ function removeRecord(button) {
   // ✅ Always recompute after removing
   computeGWA();
 }
+
+  function computeGWA() {
+    const table = document.getElementById("recordsTable");
+    let totalUnits = 0;
+    let weightedSum = 0;
+
+    for (let i = 1; i < table.rows.length; i++) {
+      const units = parseFloat(table.rows[i].cells[1].innerText);
+      const grade = parseFloat(table.rows[i].cells[2].innerText);
+      if (!isNaN(units) && !isNaN(grade)) {
+        totalUnits += units;
+        weightedSum += units * grade;
+      }
+    }
+
+    if (totalUnits > 0) {
+      const gwa = (weightedSum / totalUnits).toFixed(2);
+      document.getElementById("gwaResult").innerText = "Computed GWA: " + gwa;
+
+      // Update dashboard cards
+      document.getElementById("semGWA").innerText = gwa;
+      document.getElementById("cumGWA").innerText = gwa;
+      document.getElementById("status").innerText = (gwa <= 2.0) ? "Dean's List" : "Regular Standing";
+
+      // Update Honors page
+      document.getElementById("analysisGWA").innerHTML = "<strong>Computed GWA:</strong> " + gwa;
+      document.getElementById("analysisPassFail").innerHTML = "<strong>Pass/Fail:</strong> " + (gwa <= 3.0 ? "Pass" : "Fail");
+      document.getElementById("analysisDean").innerHTML = "<strong>Dean’s List Qualification:</strong> " + (gwa <= 2.0 ? "Eligible" : "Not Eligible");
+
+      let honors = "None";
+      if (gwa <= 1.75) honors = "Cum Laude";
+      if (gwa <= 1.50) honors = "Magna Cum Laude";
+      if (gwa <= 1.25) honors = "Summa Cum Laude";
+
+      document.getElementById("analysisHonors").innerHTML = "<strong>Latin Honors Eligibility:</strong> " + honors;
+    }
+  }
 </script>
-
-
 
 </body>
 </html>
