@@ -5,19 +5,27 @@
   <title>Web-Based GWA System</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f5f7fa; margin: 0; }
-    .login-box, .page { max-width: 400px; margin: 80px auto; padding: 20px; background: white; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    h2 { text-align: center; color: #004080; }
-    input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; }
-    button { width: 100%; padding: 10px; background: #004080; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #0066cc; }
-    .logout { background: #c00; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-    th { background: #f0f0f0; }
+    header { background:#004080; color:white; padding:15px; text-align:center; }
+    .layout { display:flex; }
+    .sidebar { width:200px; background:#fff; border-right:1px solid #ddd; padding:20px; height:100vh; }
+    .sidebar h3 { color:#004080; margin-bottom:15px; }
+    .sidebar ul { list-style:none; padding:0; }
+    .sidebar li { margin:12px 0; cursor:pointer; color:#333; }
+    .sidebar li span { margin-right:8px; }
+    .container { flex:1; padding:20px; }
+    .login-box, .page { max-width:400px; margin:80px auto; padding:20px; background:white; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    h2 { color:#004080; }
+    input { width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:4px; }
+    button { width:100%; padding:10px; background:#004080; color:white; border:none; border-radius:4px; cursor:pointer; }
+    button:hover { background:#0066cc; }
+    .logout { background:#c00; }
     .cards { display:flex; gap:15px; flex-wrap:wrap; margin-top:20px; }
     .card { flex:1; min-width:180px; background:#fafafa; padding:15px; border-radius:6px; text-align:center; border:1px solid #ddd; }
     .card h3 { margin:0; color:#004080; }
     .card p { font-size:20px; font-weight:bold; margin-top:10px; }
+    table { width:100%; border-collapse:collapse; margin-top:15px; }
+    th, td { border:1px solid #ccc; padding:8px; text-align:center; }
+    th { background:#f0f0f0; }
   </style>
 </head>
 <body>
@@ -34,39 +42,38 @@
   <p style="font-size:12px; text-align:center; margin-top:10px;">Need an account? Please contact the admin to register your student profile.</p>
 </div>
 
-<!-- Dashboard -->
-<div id="dashboardPage" class="page" style="display:none;">
-  <h2>Dashboard</h2>
-  <p>Welcome, <span id="userDisplay"></span>!</p>
-  
-  <div class="cards">
-    <div class="card">
-      <h3>Semester GWA</h3>
-      <p>1.75</p>
+<!-- Dashboard Layout -->
+<div id="dashboardPage" style="display:none;">
+  <header><h1>Academic Dashboard</h1></header>
+  <div class="layout">
+    <div class="sidebar">
+      <h3>Menu</h3>
+      <ul>
+        <li onclick="showDashboard()"><span>🏠</span>Dashboard</li>
+        <li onclick="showRecords()"><span>📂</span>Records</li>
+        <li onclick="showAnalysis()"><span>🎓</span>Honors</li>
+        <li onclick="logout()"><span>🔑</span>Logout</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Cumulative GWA</h3>
-      <p>1.80</p>
-    </div>
-    <div class="card">
-      <h3>Status</h3>
-      <p>Dean’s List</p>
-    </div>
-  </div>
+    <div class="container" id="mainContent">
+      <h2>Dashboard</h2>
+      <p>Welcome, <span id="userDisplay"></span>!</p>
+      
+      <div class="cards">
+        <div class="card"><h3>Semester GWA</h3><p>1.75</p></div>
+        <div class="card"><h3>Cumulative GWA</h3><p>1.80</p></div>
+        <div class="card"><h3>Status</h3><p>Dean’s List</p></div>
+      </div>
 
-  <div style="margin-top:30px; background:#fafafa; border:1px solid #ccc; border-radius:6px; padding:20px;">
-    <h3>Performance Trend</h3>
-    <p>[Insert chart screenshot here – e.g., line graph of GWA per semester]</p>
-  </div>
-
-  <div style="margin-top:20px;">
-    <button onclick="showRecords()">View Academic Records</button>
-    <button onclick="showAnalysis()">Check GWA Analysis</button>
-    <button class="logout" onclick="logout()">Log Out</button>
+      <div style="margin-top:30px; background:#fafafa; border:1px solid #ccc; border-radius:6px; padding:20px;">
+        <h3>Performance Trend</h3>
+        <p>[Insert chart screenshot here – e.g., line graph of GWA per semester]</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Academic Records -->
+<!-- Records -->
 <div id="recordsPage" class="page" style="display:none;">
   <h2>Academic Records</h2>
   <table>
@@ -78,7 +85,7 @@
   <button onclick="backToDashboard()">Back to Dashboard</button>
 </div>
 
-<!-- GWA Analysis -->
+<!-- Analysis -->
 <div id="analysisPage" class="page" style="display:none;">
   <h2>GWA Analysis</h2>
   <p><strong>Computed GWA:</strong> 1.75</p>
@@ -99,6 +106,12 @@
     } else {
       alert("Invalid credentials. Try username: strongadmin and password: pass123");
     }
+  }
+
+  function showDashboard() {
+    document.getElementById("recordsPage").style.display = "none";
+    document.getElementById("analysisPage").style.display = "none";
+    document.getElementById("dashboardPage").style.display = "block";
   }
 
   function showRecords() {
