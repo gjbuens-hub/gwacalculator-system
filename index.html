@@ -241,6 +241,30 @@ function removeRecord(button) {
       document.getElementById("analysisHonors").innerHTML = "<strong>Latin Honors Eligibility:</strong> " + honors;
     }
   }
+
+  function clearRecords() {
+    // Clear dashboard table
+    const table = document.getElementById("recordsTable");
+    while (table.rows.length > 1) {
+      table.deleteRow(1);
+    }
+
+    // Clear Records page table
+    const recordsPageTable = document.getElementById("recordsPageTable");
+    while (recordsPageTable.rows.length > 1) {
+      recordsPageTable.deleteRow(1);
+    }
+
+    // Reset results
+    document.getElementById("gwaResult").innerText = "Computed GWA: -";
+    document.getElementById("semGWA").innerText = "-";
+    document.getElementById("cumGWA").innerText = "-";
+    document.getElementById("status").innerText = "-";
+    document.getElementById("analysisGWA").innerHTML = "<strong>Computed GWA:</strong> -";
+    document.getElementById("analysisPassFail").innerHTML = "<strong>Pass/Fail:</strong> -";
+    document.getElementById("analysisDean").innerHTML = "<strong>Dean’s List Qualification:</strong> -";
+    document.getElementById("analysisHonors").innerHTML = "<strong>Latin Honors Eligibility:</strong> -";
+  }
 </script>
 
 </body>
