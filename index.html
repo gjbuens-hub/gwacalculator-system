@@ -173,6 +173,7 @@
     }
   }
 
+  <script>
   function computeGWA() {
     const table = document.getElementById("recordsTable");
     let totalUnits = 0;
@@ -190,9 +191,23 @@
     if(totalUnits > 0) {
       const gwa = (weightedSum / totalUnits).toFixed(2);
       document.getElementById("gwaResult").innerText = "Computed GWA: " + gwa;
+
+      // Update dashboard cards automatically
       document.getElementById("semGWA").innerText = gwa;
       document.getElementById("cumGWA").innerText = gwa;
       document.getElementById("status").innerText = (gwa <= 2.0) ? "Dean's List" : "Regular Standing";
+
+      // Update Honors page dynamically
+      document.querySelector("#analysisPage strong:nth-of-type(1)").parentNode.innerHTML = "<strong>Computed GWA:</strong> " + gwa;
+      document.querySelector("#analysisPage strong:nth-of-type(2)").parentNode.innerHTML = "<strong>Pass/Fail:</strong> " + (gwa <= 3.0 ? "Pass" : "Fail");
+      document.querySelector("#analysisPage strong:nth-of-type(3)").parentNode.innerHTML = "<strong>Dean’s List Qualification:</strong> " + (gwa <= 2.0 ? "Eligible" : "Not Eligible");
+
+      let honors = "None";
+      if(gwa <= 1.75) honors = "Cum Laude";
+      if(gwa <= 1.50) honors = "Magna Cum Laude";
+      if(gwa <= 1.25) honors = "Summa Cum Laude";
+
+      document.querySelector("#analysisPage strong:nth-of-type(4)").parentNode.innerHTML = "<strong>Latin Honors Eligibility:</strong> " + honors;
     }
   }
 </script>
