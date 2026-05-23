@@ -59,11 +59,14 @@
       <h2>Dashboard</h2>
       <p>Welcome, <span id="userDisplay"></span>!</p>
       
-      <div class="cards">
-        <div class="card"><h3>Semester GWA</h3><p>1.75</p></div>
-        <div class="card"><h3>Cumulative GWA</h3><p>1.80</p></div>
-        <div class="card"><h3>Status</h3><p>Dean’s List</p></div>
-      </div>
+<div id="analysisPage" class="page" style="display:none;">
+  <h2>GWA Analysis</h2>
+  <p id="analysisGWA"><strong>Computed GWA:</strong> -</p>
+  <p id="analysisPassFail"><strong>Pass/Fail:</strong> -</p>
+  <p id="analysisDean"><strong>Dean’s List Qualification:</strong> -</p>
+  <p id="analysisHonors"><strong>Latin Honors Eligibility:</strong> -</p>
+  <button onclick="backToDashboard()">Back to Dashboard</button>
+</div>
 
     <!-- Performance Trend Section -->
 <div style="margin-top:30px; background:#fafafa; border:1px solid #ccc; border-radius:6px; padding:20px;">
