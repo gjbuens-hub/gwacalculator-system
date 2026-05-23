@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web-Based GWA System </title>
+  <title>Web-Based GWA System</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #1e1e2f; color: #eee; margin: 0; display:flex; }
+    body { font-family: Arial, sans-serif; background: #1e1e2f; color: #eee; margin: 0; }
     header { background: #004080; padding: 15px; text-align: center; color: white; }
     .sidebar { width: 200px; background:#2a2a3d; padding:20px; height:100vh; }
     .sidebar h3 { color:#4da6ff; }
@@ -15,7 +15,7 @@
     .container { flex:1; padding:20px; }
     .login-box, .page { max-width: 400px; margin: 80px auto; padding: 20px; background: #2a2a3d; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
     h2 { text-align: center; color: #4da6ff; }
-    input { width: 100%; padding: 10px; margin: 8px 0; border: none; border-radius: 4px; }
+    input { width: 100%; padding: 10px; border: none; border-radius: 4px; }
     button { width: 100%; padding: 10px; background: #4da6ff; color: white; border: none; border-radius: 4px; cursor: pointer; }
     button:hover { background: #1a75d1; }
     .logout { background: #c00; }
@@ -41,7 +41,7 @@
 
   <div class="input-group">
     <span>👤</span>
-    <input type="text" id="username" placeholder="studentID">
+    <input type="text" id="username" placeholder="StudentID">
   </div>
 
   <div class="input-group">
@@ -50,12 +50,12 @@
     <span id="togglePassword" style="cursor:pointer;">👁️</span>
   </div>
 
-  <button onclick="login()">Sign In</button>
+  <button id="signInBtn">Sign In</button>
   <p style="font-size:12px; text-align:center; margin-top:10px;">Need an account? Please contact the admin to register your student profile.</p>
 </div>
 
 <!-- Dashboard -->
-<div id="dashboardPage" style="display:none; width:100%;">
+<div id="dashboardPage" style="display:none; width:100%; display:flex;">
   <div class="sidebar">
     <h3>Menu</h3>
     <ul>
@@ -115,7 +115,9 @@
 </div>
 
 <script>
-  // Login
+  // Attach login button event
+  document.getElementById("signInBtn").addEventListener("click", login);
+
   function login() {
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
@@ -161,4 +163,4 @@
     document.getElementById("dashboardPage").style.display = "flex";
   }
   function logout() {
-    document
+    document.getElementById("dashboardPage
