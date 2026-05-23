@@ -112,20 +112,22 @@
   }
 
   function showDashboard() {
-    document.getElementById("recordsPage").style.display = "none";
-    document.getElementById("analysisPage").style.display = "none";
-    document.getElementById("dashboardPage").style.display = "block";
-  }
+  document.getElementById("dashboardPage").style.display = "block";
+  document.getElementById("recordsPage").style.display = "none";
+  document.getElementById("analysisPage").style.display = "none";
+}
 
-  function showRecords() {
-    document.getElementById("dashboardPage").style.display = "none";
-    document.getElementById("recordsPage").style.display = "block";
-  }
+function showRecords() {
+  document.getElementById("dashboardPage").style.display = "none";
+  document.getElementById("recordsPage").style.display = "block";
+  document.getElementById("analysisPage").style.display = "none";
+}
 
-  function showAnalysis() {
-    document.getElementById("dashboardPage").style.display = "none";
-    document.getElementById("analysisPage").style.display = "block";
-  }
+function showAnalysis() {
+  document.getElementById("dashboardPage").style.display = "none";
+  document.getElementById("recordsPage").style.display = "none";
+  document.getElementById("analysisPage").style.display = "block";
+}
 
   function backToDashboard() {
     document.getElementById("recordsPage").style.display = "none";
