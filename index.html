@@ -67,16 +67,19 @@
 
       <div style="margin-top:30px; background:#fafafa; border:1px solid #ccc; border-radius:6px; padding:20px;">
         <h3>Performance Trend</h3>
-       <label>Subject</label>
-<input type="text" id="subject">
-<label>Units</label>
-<input type="number" id="units">
-<label>Grade</label>
-<input type="number" step="0.01" id="grade">
-<button onclick="addRecord()">Add Record</button>
+        <label>Subject</label>
+        <input type="text" id="subject">
+        <label>Units</label>
+        <input type="number" id="units">
+        <label>Grade</label>
+        <input type="number" step="0.01" id="grade">
+        <button onclick="addRecord()">Add Record</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-<!-- Records -->
+<!-- Records Page (moved OUTSIDE dashboard) -->
 <div id="recordsPage" class="page" style="display:none;">
   <h2>Academic Records</h2>
   <table>
@@ -88,7 +91,7 @@
   <button onclick="backToDashboard()">Back to Dashboard</button>
 </div>
 
-<!-- Analysis -->
+<!-- Analysis Page (moved OUTSIDE dashboard) -->
 <div id="analysisPage" class="page" style="display:none;">
   <h2>GWA Analysis</h2>
   <p><strong>Computed GWA:</strong> 1.75</p>
