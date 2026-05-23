@@ -121,22 +121,22 @@
   }
 
   function showDashboard() {
-  document.getElementById("dashboardPage").style.display = "block";
-  document.getElementById("recordsPage").style.display = "none";
-  document.getElementById("analysisPage").style.display = "none";
-}
+    document.getElementById("dashboardPage").style.display = "block";
+    document.getElementById("recordsPage").style.display = "none";
+    document.getElementById("analysisPage").style.display = "none";
+  }
 
-function showRecords() {
-  document.getElementById("dashboardPage").style.display = "none";
-  document.getElementById("recordsPage").style.display = "block";
-  document.getElementById("analysisPage").style.display = "none";
-}
+  function showRecords() {
+    document.getElementById("dashboardPage").style.display = "none";
+    document.getElementById("recordsPage").style.display = "block";
+    document.getElementById("analysisPage").style.display = "none";
+  }
 
-function showAnalysis() {
-  document.getElementById("dashboardPage").style.display = "none";
-  document.getElementById("recordsPage").style.display = "none";
-  document.getElementById("analysisPage").style.display = "block";
-}
+  function showAnalysis() {
+    document.getElementById("dashboardPage").style.display = "none";
+    document.getElementById("recordsPage").style.display = "none";
+    document.getElementById("analysisPage").style.display = "block";
+  }
 
   function backToDashboard() {
     document.getElementById("recordsPage").style.display = "none";
@@ -159,24 +159,26 @@ function showAnalysis() {
     const grade = parseFloat(document.getElementById("grade").value);
 
     if(subject && !isNaN(units) && !isNaN(grade)) {
-      // Add row to table
       const table = document.getElementById("recordsTable");
       const row = table.insertRow();
       row.innerHTML = `<td>${subject}</td><td>${units}</td><td>${grade}</td>`;
 
-      // Clear inputs
       document.getElementById("subject").value = "";
       document.getElementById("units").value = "";
       document.getElementById("grade").value = "";
-      
-     // Recompute GWA automatically
+
       computeGWA();
     } else {
       alert("Please enter valid subject, units, and grade.");
     }
   }
-  
- for(let i=1; i<table.rows.length; i++) {
+
+  function computeGWA() {
+    const table = document.getElementById("recordsTable");
+    let totalUnits = 0;
+    let weightedSum = 0;
+
+    for(let i=1; i<table.rows.length; i++) {
       const units = parseFloat(table.rows[i].cells[1].innerText);
       const grade = parseFloat(table.rows[i].cells[2].innerText);
       if(!isNaN(units) && !isNaN(grade)) {
@@ -188,8 +190,6 @@ function showAnalysis() {
     if(totalUnits > 0) {
       const gwa = (weightedSum / totalUnits).toFixed(2);
       document.getElementById("gwaResult").innerText = "Computed GWA: " + gwa;
-
-      // Update dashboard cards automatically
       document.getElementById("semGWA").innerText = gwa;
       document.getElementById("cumGWA").innerText = gwa;
       document.getElementById("status").innerText = (gwa <= 2.0) ? "Dean's List" : "Regular Standing";
