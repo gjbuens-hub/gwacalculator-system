@@ -85,25 +85,23 @@
   </div>
 </div>
 
-<!-- Records Page (moved OUTSIDE dashboard) -->
+<!-- Records Page -->
 <div id="recordsPage" class="page" style="display:none;">
   <h2>Academic Records</h2>
-  <table>
+  <table id="recordsPageTable">
     <tr><th>Subject</th><th>Units</th><th>Grade</th></tr>
-    <tr><td>Programming 1</td><td>3</td><td>1.75</td></tr>
-    <tr><td>Database Systems</td><td>3</td><td>1.50</td></tr>
-    <tr><td>Networking</td><td>3</td><td>2.00</td></tr>
+    <!-- rows will be added dynamically -->
   </table>
   <button onclick="backToDashboard()">Back to Dashboard</button>
 </div>
 
-<!-- Analysis Page (moved OUTSIDE dashboard) -->
+<!-- Analysis Page -->
 <div id="analysisPage" class="page" style="display:none;">
   <h2>GWA Analysis</h2>
-  <p><strong>Computed GWA:</strong> 1.75</p>
-  <p><strong>Pass/Fail:</strong> Pass</p>
-  <p><strong>Dean’s List Qualification:</strong> Eligible</p>
-  <p><strong>Latin Honors Eligibility:</strong> Cum Laude</p>
+  <p id="analysisGWA"><strong>Computed GWA:</strong> -</p>
+  <p id="analysisPassFail"><strong>Pass/Fail:</strong> -</p>
+  <p id="analysisDean"><strong>Dean’s List Qualification:</strong> -</p>
+  <p id="analysisHonors"><strong>Latin Honors Eligibility:</strong> -</p>
   <button onclick="backToDashboard()">Back to Dashboard</button>
 </div>
 
@@ -164,8 +162,8 @@
       const row = table.insertRow();
       row.innerHTML = `<td>${subject}</td><td>${units}</td><td>${grade}</td>`;
 
-      // Also add row to Records page table
-      const recordsPageTable = document.querySelector("#recordsPage table");
+      // Add row to Records page table
+      const recordsPageTable = document.getElementById("recordsPageTable");
       const row2 = recordsPageTable.insertRow();
       row2.innerHTML = `<td>${subject}</td><td>${units}</td><td>${grade}</td>`;
 
@@ -174,7 +172,7 @@
       document.getElementById("units").value = "";
       document.getElementById("grade").value = "";
 
-      // Recompute GWA automatically
+      // Recompute GWA
       computeGWA();
     } else {
       alert("Please enter valid subject, units, and grade.");
@@ -199,22 +197,22 @@
       const gwa = (weightedSum / totalUnits).toFixed(2);
       document.getElementById("gwaResult").innerText = "Computed GWA: " + gwa;
 
-      // Update dashboard cards automatically
+      // Update dashboard cards
       document.getElementById("semGWA").innerText = gwa;
       document.getElementById("cumGWA").innerText = gwa;
       document.getElementById("status").innerText = (gwa <= 2.0) ? "Dean's List" : "Regular Standing";
 
-      // Update Honors page dynamically
-      document.querySelector("#analysisPage strong:nth-of-type(1)").parentNode.innerHTML = "<strong>Computed GWA:</strong> " + gwa;
-      document.querySelector("#analysisPage strong:nth-of-type(2)").parentNode.innerHTML = "<strong>Pass/Fail:</strong> " + (gwa <= 3.0 ? "Pass" : "Fail");
-      document.querySelector("#analysisPage strong:nth-of-type(3)").parentNode.innerHTML = "<strong>Dean’s List Qualification:</strong> " + (gwa <= 2.0 ? "Eligible" : "Not Eligible");
+       // Update Honors page
+      document.getElementById("analysisGWA").innerHTML = "<strong>Computed GWA:</strong> " + gwa;
+      document.getElementById("analysisPassFail").innerHTML = "<strong>Pass/Fail:</strong> " + (gwa <= 3.0 ? "Pass" : "Fail");
+      document.getElementById("analysisDean").innerHTML = "<strong>Dean’s List Qualification:</strong> " + (gwa <= 2.0 ? "Eligible" : "Not Eligible");
 
       let honors = "None";
       if(gwa <= 1.75) honors = "Cum Laude";
       if(gwa <= 1.50) honors = "Magna Cum Laude";
       if(gwa <= 1.25) honors = "Summa Cum Laude";
 
-      document.querySelector("#analysisPage strong:nth-of-type(4)").parentNode.innerHTML = "<strong>Latin Honors Eligibility:</strong> " + honors;
+      document.getElementById("analysisHonors").innerHTML = "<strong>Latin Honors Eligibility:</strong> " + honors;
     }
   }
 </script>
