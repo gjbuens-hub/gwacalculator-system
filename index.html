@@ -106,6 +106,16 @@
   <button onclick="backToDashboard()">Back to Dashboard</button>
 </div>
 
+  <!-- Custom Logout Modal -->
+<div id="logoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+     background:rgba(0,0,0,0.5); text-align:center; padding-top:200px;">
+  <div style="background:#fff; padding:20px; border-radius:6px; display:inline-block;">
+    <p>Are you sure you want to logout?</p>
+    <button onclick="confirmLogout(true)">Yes</button>
+    <button onclick="confirmLogout(false)">Cancel</button>
+  </div>
+</div>
+  
 <script>
   function login() {
     const user = document.getElementById("username").value;
@@ -143,18 +153,23 @@
     document.getElementById("dashboardPage").style.display = "block";
   }
 
-  function logout() {
-  const confirmLogout = confirm("Are you sure you want to logout?");
-  if (confirmLogout) {
+ function logout() {
+  // Show custom modal instead of browser confirm
+  document.getElementById("logoutModal").style.display = "block";
+}
+
+function confirmLogout(choice) {
+  document.getElementById("logoutModal").style.display = "none";
+  if (choice) {
+    // Proceed with logout
     document.getElementById("dashboardPage").style.display = "none";
     document.getElementById("recordsPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "none";
     document.getElementById("loginPage").style.display = "block";
-    // Reset fields properly
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
   }
-  }
+}
 
   function addRecord() {
   const subject = document.getElementById("subject").value.trim();
